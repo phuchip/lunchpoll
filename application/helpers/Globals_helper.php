@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
- 
+
 // Application specific global variables
 class Globals
 {
@@ -124,16 +124,39 @@ class Globals
         return strtolower(preg_replace(array_keys($map), array_values($map), $title));
     }
 
-    public function setCookie($name,$value)
+    public static function checkLogin()
     {
-        $cookie= array(
-            'name'   => $name,
-            'value'  => $value,                            
-            'expire' => 86400 * 30,                                                                                   
-            'secure' => TRUE
-        );
- 
-        $this->input->set_cookie($cookie);
+        if(isset($_COOKIE['user_id'])){
+            $user_id = $_COOKIE['user_id'];
+            $user_email = $_COOKIE['user_email'];
+            $CI = get_instance();
+            // You may need to load the model if it hasn't been pre-loaded
+            $CI->load->model('site_model');
+            $data = $CI->site_model->checkUser('user',['id'=>$user_id,'email'=>$user_email])->row();
+            $user = [
+                'id'	=> $data->id,
+                'username' => $data->username,
+                'avatar'	=> $data->avatar,
+                'active'=> 1,
+            ];
+            $_SESSION['user'] = $user;
+        }
+    }
+
+    public static function setCookie($name,$value,$exprire=null)
+    {
+		$exprire =$exprire ? $exprire : 86400 * 30;
+		setcookie($name,$value,$exprire);
+    }
+
+    public static function unsetCookie($name){
+        if(is_array($name)){
+            foreach($name as $value){
+                setcookie($value, '', time() - 3600, '/');
+            }
+        }else{
+            setcookie($name, '', time() - 3600, '/');
+        }
     }
 
 }
