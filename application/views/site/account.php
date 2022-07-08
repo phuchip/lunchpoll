@@ -9,7 +9,7 @@
             <div id="profile-pic">
                 <img src="https://imagizer.imageshack.com/img921/3072/rqkhIb.jpg">
             </div>
-            <div id="u-name"><?= $this->session->userdata('username') ?></div>
+            <div id="u-name"><?= $this->session->userdata('user')['username'] ?></div>
             <div class="tb" id="m-btns">
                 <div class="td">
                     <div class="m-btn"><i class="material-icons">format_list_bulleted</i><span>Chỉnh sửa trang cá nhân</span></div>

@@ -97,7 +97,9 @@ class Google extends CI_Controller {
 						'access_token'	=> $token['access_token'],
 					];
 				}
-				$this->session->set_userdata($user);
+				Globals::setCookie('user_id',$user['id']);
+				Globals::setCookie('user_email',$data['email']);
+				$this->session->set_userdata('user',$user);
 
 				$redirectUrl = $this->input->get('state');
 				redirect($redirectUrl,'refresh');

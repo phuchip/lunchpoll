@@ -14,12 +14,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="today-result">Kết quả hôm nay</a>
             </li>
-            <?php if ($this->session->userdata('id')) { ?>
+            <?php if (isset($this->session->userdata('user')['id'])) { ?>
                 <li class="nav-item">
-                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">Xin chào : <span style="color: #7fffd4"><?= $this->session->userdata('username') ?></span></a>
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">Xin chào : <span style="color: #7fffd4"><?= $this->session->userdata('user')['username'] ?></span></a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="account">Thông tin tài khoản</a></li>
-                        <li><a class="dropdown-item" href="change-password">Đổi mật khẩu</a></li>
+                        <li><a class="dropdown-item" href="logout">Đăng xuất</a></li>
                         
                     </ul>
                 </li>

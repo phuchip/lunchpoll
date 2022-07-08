@@ -10,13 +10,12 @@ class Site extends CI_Controller {
 		$this->load->helper('lunch');
 		$this->load->helper('Globals');
 		$this->load->helper('cookie');
-		$this->load->library('encryption');
 		date_default_timezone_set('Asia/Ho_Chi_Minh');
+		Globals::checkLogin();
 	}
     
 	public function index()
 	{
-		var_dump($this->encryption);die;
 		$data['arrFood'] = self::getDataPollFoodUser();
 
 		$data['title'] = 'Hôm nay ăn gì ?';
@@ -50,8 +49,9 @@ class Site extends CI_Controller {
 				'active'=> 1,
 				'loginType'=> 'account'
 			];
-			Globals::setCookie('user_id',$this->encrypt->encode($login->id));
-			$this->session->set_userdata($user);
+			Globals::setCookie('user_id',$login->id);
+			Globals::setCookie('user_email',$login->email);
+			$this->session->set_userdata('user',$user);
 			$this->Site_model->update_data('user',['active'=>1],['id'=>$login->id]);
 			$output['message'] = 'Đăng nhập thành công. Đang chuyển hướng...';
 		}
@@ -89,6 +89,7 @@ class Site extends CI_Controller {
 	{
 		$this->Site_model->update_data('user',['active'=>0],['id'=>$this->session->user['id']]);
 		$this->session->unset_userdata('user');
+		Globals::unsetCookie(['user_id','user_email']);
 		redirect();
 	}
 
