@@ -28,7 +28,7 @@
                 <div class="poll-area">
                     <ul class="items">
                     <?php foreach($arrFood as $food): ?>
-                        <?php if ($food['user'] && isset($food['user'][$this->session->userdata('id')])) {
+                        <?php if ($food['user'] && isset($food['user'][$this->session->userdata('user')['id']])) {
                             $selected = 'selected';
                             $checked = 'checked';
                         }else{

@@ -126,10 +126,12 @@ class Globals
 
     public static function checkLogin()
     {
+        $CI = get_instance();
         if(isset($_COOKIE['user_id'])){
             $user_id = $_COOKIE['user_id'];
+            $user_id = $CI->encryption->decrypt($user_id);
             $user_email = $_COOKIE['user_email'];
-            $CI = get_instance();
+            $user_email = $CI->encryption->decrypt($user_email);
             // You may need to load the model if it hasn't been pre-loaded
             $CI->load->model('site_model');
             $data = $CI->site_model->checkUser('user',['id'=>$user_id,'email'=>$user_email])->row();
@@ -145,8 +147,8 @@ class Globals
 
     public static function setCookie($name,$value,$exprire=null)
     {
-		$exprire =$exprire ? $exprire : 86400 * 30;
-		setcookie($name,$value,$exprire);
+		$exprire =$exprire ? $exprire : time() + (86400 * 30);
+		setcookie($name,$value,(int)$exprire,'/');
     }
 
     public static function unsetCookie($name){
@@ -157,6 +159,37 @@ class Globals
         }else{
             setcookie($name, '', time() - 3600, '/');
         }
+    }
+
+    public static function make_avatar($userId,$character)
+    {
+        $path = 'images/avatar/'.date('Ym').'/';
+        if (!file_exists($path)) {
+            mkdir($path, 0777,true);
+        }
+        $filePath = self::createFilePath($path,$userId);
+        $image = imagecreate(250, 250);
+        $red = rand(0, 255);
+        $green = rand(0, 255);
+        $blue = rand(0, 255);
+        imagecolorallocate($image, $red, $green, $blue);  
+        $textcolor = imagecolorallocate($image, 255,255,255);  
+        $font = realpath('assets/font/arial.ttf');
+        imagettftext($image, 100, 0, 35, 175, $textcolor, $font, $character);  
+        imagepng($image, $filePath);
+        imagedestroy($image);
+        return $filePath;
+    }
+
+    public static function getCharacterName($name)
+    {
+        $name = ucfirst($name);
+        $character = '';
+		$arrWords = preg_split("/(\s|\-|\.)/", $name);
+        $firstName = substr(current($arrWords),0,1);
+        $lastName = substr(end($arrWords),0,1);
+        $character = $firstName.$lastName;
+        return $character;
     }
 
 }

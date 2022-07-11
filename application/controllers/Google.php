@@ -97,8 +97,8 @@ class Google extends CI_Controller {
 						'access_token'	=> $token['access_token'],
 					];
 				}
-				Globals::setCookie('user_id',$user['id']);
-				Globals::setCookie('user_email',$data['email']);
+				Globals::setCookie('user_id',$this->encryption->encrypt($user['id']));
+				Globals::setCookie('user_email',$this->encryption->encrypt($data['email']));
 				$this->session->set_userdata('user',$user);
 
 				$redirectUrl = $this->input->get('state');
@@ -107,6 +107,18 @@ class Google extends CI_Controller {
 		}
 
 		
+	}
+
+	function setcookie($name,$value,$exprire = null)
+	{
+		$exprire =$exprire ? $exprire : time() + (86400 * 30);
+		$cookie = array(
+			'name'   => $name,
+			'value'  => $value,                            
+			'expire' => $exprire,                                                                                   
+			'secure' => TRUE
+			);
+		$this->input->set_cookie($cookie);
 	}
 
 }

@@ -7,14 +7,14 @@ class Api extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Site_model');
-		$this->load->helper('lunch');
 		date_default_timezone_set('Asia/Ho_Chi_Minh');
+		Globals::checkLogin();
 	}
-
+	
 	public function choose_food()
 	{
 		$foodId = $this->input->post('id_food');
-		$poll_by = $this->session->userdata('id');
+		$poll_by = $this->session->userdata('user')['id'];
 		if (!$poll_by) {
 			echo json_encode(['status'=>false,'mes'=>'Vui lòng đăng nhập!']);
 			exit();
@@ -52,7 +52,7 @@ class Api extends CI_Controller {
 		$name = $this->input->post('food_name');
 		$desc = $this->input->post('food_desc');
 		$image = $_FILES['food_image'];
-		$poll_by = $this->session->userdata('id');
+		$poll_by = $this->session->userdata('user')['id'];
 		if (!$name) {
 			echo json_encode(['status'=>false,'mes'=>'Vui lòng điền món ăn']);
 			exit();

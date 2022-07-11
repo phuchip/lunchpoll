@@ -23,7 +23,7 @@ body{
     background: #fff;
     border-radius: 15px;
     padding: 25px;
-    max-width: 50%;
+    max-width: 60%;
     width: 100%;
     box-shadow: 0px 5px 10px rgb(0 0 0 / 10%);
 }
@@ -113,9 +113,6 @@ li .progress {
 }
 li.show .progress,li.show .percent{
   display: block;
-}
-.progress,.percent{
-  display: none;
 }
 .navbar-light .navbar-nav .nav-link{
   color: #fff !important;
@@ -293,6 +290,25 @@ textarea:focus, input:focus{
 }
 .btn-top .fa {
     font-size: 32px;
+}
+.list-poll{
+  display: flex;
+  justify-content: end;
+}
+.list-poll img{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+/* Tooltip */
+.tooltip_templates{
+  display: none;
+}
+.tooltip_templates p{
+  font-size: 12px;
+  color: #000;
+  font-weight: normal;
+  margin-bottom: 5px;
 }
 /*reponsive*/
 @media(max-width: 780px){

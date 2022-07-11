@@ -7,9 +7,6 @@ class Site extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Site_model');
-		$this->load->helper('lunch');
-		$this->load->helper('Globals');
-		$this->load->helper('cookie');
 		date_default_timezone_set('Asia/Ho_Chi_Minh');
 		Globals::checkLogin();
 	}
@@ -19,14 +16,7 @@ class Site extends CI_Controller {
 		$data['arrFood'] = self::getDataPollFoodUser();
 
 		$data['title'] = 'Hôm nay ăn gì ?';
-		if (date('H:i:m')) {
-			$data['result']= $this->db->query('SELECT pd.id,f.name as name FROM `poll_date` pd LEFT JOIN food f ON f.id = pd.food_id WHERE pd.date = "'.date('Y-m-d').'" ORDER BY total DESC LIMIT 1 ')->row();
-			$data['content'] = 'site/today_result';
-		}else{
-			$data['content'] = 'site/home';
-		}
-			$data['content'] = 'site/home';
-		
+		$data['content'] = 'site/home';
 		$this->load->view('site/index',$data);
     }
 
@@ -38,7 +28,9 @@ class Site extends CI_Controller {
 		$login = $this->Site_model->check_login($email, $password);
 		if($login){
 			if (empty($login->avatar)) {
-				$avatar = 'image/avatar/no-user.png';
+				$characterName = Globals::getCharacterName($login->username);
+				$avatar = Globals::make_avatar($login->id,$characterName);
+				$this->Site_model->update_data('user',['avatar'=>$avatar],['id'=>$login->id]);
 			}else{
 				$avatar = $login->avatar;
 			}
@@ -49,9 +41,9 @@ class Site extends CI_Controller {
 				'active'=> 1,
 				'loginType'=> 'account'
 			];
-			Globals::setCookie('user_id',$login->id);
-			Globals::setCookie('user_email',$login->email);
 			$this->session->set_userdata('user',$user);
+			Globals::setCookie('user_id',$this->encryption->encrypt($login->id));
+			Globals::setCookie('user_email',$this->encryption->encrypt($login->email));
 			$this->Site_model->update_data('user',['active'=>1],['id'=>$login->id]);
 			$output['message'] = 'Đăng nhập thành công. Đang chuyển hướng...';
 		}
@@ -77,6 +69,9 @@ class Site extends CI_Controller {
 			$output['message'] = 'Tài khoản đã được sử dụng!';
 		}else {
 			$register = $this->Site_model->register($username,$email,$password);
+			$characterName = Globals::getCharacterName($username);
+			$avatar = Globals::make_avatar($this->db->insert_id(),$characterName);
+			$this->Site_model->update_data('user',['avatar'=>$avatar],['id'=>$this->db->insert_id()]);
 			if ($register) {
 				$output['message'] = 'Đăng ký tài khoản thành công. Vui lòng đăng nhập...';
 			}else{
@@ -129,6 +124,18 @@ class Site extends CI_Controller {
 		$data['title'] = $this->session->userdata('username');
 		$data['content'] = 'site/account';
 		$this->load->view('site/index',$data);
+	}
+
+	function setcookie($name,$value,$exprire = null)
+	{
+		$exprire =$exprire ? $exprire : time() + (86400 * 30);
+		$cookie = array(
+			'name'   => $name,
+			'value'  => $value,                            
+			'expire' => (int)$exprire,                                                                                   
+			'secure' => TRUE
+		);
+		$this->input->set_cookie($cookie);
 	}
 }
 
