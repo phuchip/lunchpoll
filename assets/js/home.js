@@ -94,11 +94,32 @@ $(document).ready(function () {
                         var parent = $('#opt-'+value['food_id']);
                         parent.find('.percent').html(percent);
                         parent.find('.progress-bar').css('width',percent);
+						addPollUser(parent,value['user']);
+						tooltip();
                     });
                 }
             }
         });
     });
+
+	function addPollUser(parent,user){
+		var html = '';
+		var username = '';
+		$.each(user,function(key,value){
+			html += `<div class="poll-by">`;
+			html += `<img src="`+value['avatar']+`" onerror="this.onerror=null;this.src='/images/avatar/no-user.png';">`;
+			html += `</div>`;
+		});
+		html += `<div class="tooltip_templates">`;
+		$.each(user,function(key,value){
+			username += `<p>`+value['username']+`</p>`;
+		});
+		html += username;
+		html += `</div>`;
+		parent.find('.list-poll').html(html);
+		parent.find('.list-poll').attr("data-original-title", username);;
+		tooltipAjax();
+	}
 
     function actionOption(id_food){
         $('li.item').addClass('show');
@@ -148,6 +169,20 @@ $(document).ready(function () {
             }
         });
     });
+	tooltip();
+    function tooltip(){
+        $('.tooltip-poll').each(function () {
+            $(this).tooltip(
+            {
+                html: true,
+                placement : 'right',
+                title: $(this).find('.tooltip_templates').html()
+            });
+        });
+    }
+	function tooltipAjax(){
+		$('.tooltip-poll').tooltip({html: true,placement : 'right'});
+	}
 });
 function not_yet(){
 	alert('Chức năng này chưa có nhé !!! Chờ update');

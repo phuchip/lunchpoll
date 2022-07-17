@@ -24,16 +24,16 @@
                             <div class="percent"><?= $food['percent'] ?></div>
                         </div>
                         <div class="list-poll tooltip-poll">
-                            <?php $i=0;if($i < 4){foreach($food['user'] as $user){  ?>
+                            <?php $i=0;$arrNameUser=[];if($i < 4 && !empty($food['user'])){foreach($food['user'] as $user){  ?>
                                 <?php $i++;$arrNameUser[] = $user['username']; ?>
                                 <div class="poll-by">
                                     <img src="<?= $user['avatar'] ?>" onerror="this.onerror=null;this.src='/images/avatar/no-user.png';">
                                 </div>
                             <?php }} ?>
                             <div class="tooltip_templates">
-                                <?php foreach($arrNameUser as $nameUser): ?>
+                                <?php if(!empty($arrNameUser)){foreach($arrNameUser as $nameUser): ?>
                                     <p><?= $nameUser ?></p>
-                                <?php endforeach; ?>
+                                <?php endforeach;} ?>
                             </div>
                         </div>
                         <div class="progress">
@@ -50,13 +50,3 @@
     </div>
 </div>
 <?php echo $this->load->view('site/modal_add_food','',true); ?>
-<script>
-    $('.tooltip-poll').each(function () {
-        $(this).tooltip(
-        {
-            html: true,
-            placement : 'right',
-            title: $(this).find('.tooltip_templates').html()
-        });
-    });
-</script>
