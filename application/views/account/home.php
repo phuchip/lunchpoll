@@ -6,7 +6,7 @@
 
             <div class="story create">
                 <div class="dp-image">
-                    <img src="/assets/image/dp.jpg" alt="Profile pic">
+                    <img class="avatar" src="<?= $this->session->userdata('user')['avatar'] ?>" alt="<?= $this->session->userdata('user')['username'] ?>">
                 </div>
                 <span class="dp-container">
                     <i class="fa fa-plus"></i>
@@ -51,7 +51,7 @@
         <div class="post create">
             <div class="post-top">
                 <div class="dp">
-                    <img src="/assets/image/girl.jpg" alt="">
+                    <img class="avatar" src="<?= $this->session->userdata('user')['avatar'] ?>" alt="<?= $this->session->userdata('user')['username'] ?>">
                 </div>
                 <div class="create-post-area" data-toggle="modal" data-target="#CreatePost">
                     <span class="create-post"><?= $this->session->userdata('user')['username'] ?> ơi, bạn đang nghĩ gì thế?</span>

@@ -4,6 +4,9 @@
     box-sizing: border-box;
     font-family: sans-serif;
 }
+.h4,h4{
+    font-size: 20px;
+}
 .container{
     max-width: 100% !important;
 }
@@ -379,8 +382,8 @@ nav .nav-right a > i{
 
 .right-panel .pages-section .page > .dp,
 .right-panel .friends-section .friend > .dp{
-    height:40px;
-    width:40px;
+    height:35px;
+    width:35px;
     border-radius: 50%;
     overflow:hidden;
     cursor: pointer;
@@ -392,9 +395,13 @@ nav .nav-right a > i{
 }
 
 .right-panel .pages-section .name, .right-panel .friends-section .name{
-    font-size:18px;
+    font-size:16px;
     cursor:pointer;
     margin-left:8px;
+    font-weight: 600;
+}
+.right-panel h4{
+    color: #65676b;
 }
 .back-poll{
     display: flex;
@@ -407,4 +414,28 @@ nav .nav-right a > i{
 }
 .back-poll img{
     margin-right: 5px;
+}
+.action i.fa-video{
+    color: #f3425f;
+}
+.action i.fa-image{
+    color: #45bd62;
+}
+.action .i.fa-smile{
+    color: #f7b928;
+}
+.action span{
+    color: #65676b;
+}
+.left-panel ul li img,.left-panel ul li i{
+    width: 25px;
+}
+.left-panel ul li > p{
+    font-size: .9375rem;
+    font-weight: 600;
+}
+.left-panel ul li img.avatar{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
 }
