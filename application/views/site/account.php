@@ -93,7 +93,7 @@
                     <div class="tb">
                         <div class="td">
                             <div class="tb" id="p-tabs-m">
-                                <div class="td active"><i class="material-icons">av_timer</i><span>TIMELINE</span></div>
+                                <div class="td active"><i class="fa fa-home"></div>
                                 <div class="td"><i class="material-icons">people</i><span>FRIENDS</span></div>
                                 <div class="td"><i class="material-icons">photo</i><span>PHOTOS</span></div>
                                 <div class="td"><i class="material-icons">explore</i><span>ABOUT</span></div>

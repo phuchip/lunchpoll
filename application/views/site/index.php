@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="/assets/tooltipster/css/tooltipster.bundle.min.css" />
     <script src="/assets/js/jquery.min.js"></script>
-    <link rel="stylesheet" href="/assets/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/assets/font-awesome-v5/css/all.min.css" />
     <script type="text/javascript" src="/assets/tooltipster/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>

@@ -119,13 +119,6 @@ class Site extends CI_Controller {
 		return $data;
 	}
 
-	public function account()
-	{
-		$data['title'] = $this->session->userdata('username');
-		$data['content'] = 'site/account';
-		$this->load->view('site/index',$data);
-	}
-
 	function setcookie($name,$value,$exprire = null)
 	{
 		$exprire =$exprire ? $exprire : time() + (86400 * 30);
