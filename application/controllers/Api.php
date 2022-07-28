@@ -3,12 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Api extends CI_Controller {
 
+	public $dateNow;
+	public $dateTimeNow;
     function __construct()
 	{
 		parent::__construct();
 		$this->load->model('Site_model');
 		date_default_timezone_set('Asia/Ho_Chi_Minh');
 		Globals::checkLogin();
+		$this->dateNow = date('Y-m-d');
+		$this->dateTimeNow = date('Y-m-d H:i:s');
 	}
 	
 	public function choose_food()
@@ -117,6 +121,71 @@ class Api extends CI_Controller {
 			];
 		}
 		return $data;
+	}
+
+	function post()
+	{
+		$content = $this->input->post('content_post');
+		$userId = $this->session->userdata('user')['id'];
+		$subjecId = $this->session->userdata('user')['subject'];
+		$arrImages = $_FILES['image_post'];
+		var_dump($arrImages);die;
+		$insert = $this->site_model->insert_data('post',['user_id'=>$userId,'content'=>$content,'subject_id'=>$subjecId,'created'=>$this->dateTimeNow,'updated'=>$this->dateTimeNow]);
+		if($insert){
+			if(isset($arrImages)){
+				$arrPath = $this->insertImageToPost($arrImages,$this->db->insert_id());
+			}
+			echo json_encode(['success'=>true,'mes'=>'','images'=>$arrPath]);
+		}else{
+			echo json_encode(['success'=>false,'mes'=>'Có lỗi xảy ra xin vui lòng thử lại']);
+		}
+	}
+
+	public function insertImageToPost($arrImages,$postId)
+	{
+		$arrPath = [];
+		//Create folder
+		$folderName = 'post/'.date('Ym').'/'.$postId;
+		$folderName = Globals::createFolder($folderName);
+		for($i =0;$i <count($arrImages['name']);$i++){
+			$index = $i + 1;
+			$file_name = $postId.'_'.$index;
+			$path = $folderName.$file_name.'.png';
+			if(move_uploaded_file($arrImages['tmp_name'][$i], $path)){ // Lưu file
+				//Thực hiện insert image
+				$insert = $this->site_model->insert_data('post_image',['user_id'=>$this->session->userdata('user')['id'],'post_id'=>$postId,'image'=>$path,'status'=>1,'created'=>$this->dateTimeNow,'updated'=>$this->dateTimeNow]);
+				array_push($arrPath,$file_name);
+			};
+		}
+		return $arrPath;
+	}
+
+	function emoji()
+	{
+		$postId = $this->input->post('post_id');
+		$userId = $this->session->userdata('user')['id'];
+		$emoji = $this->input->post('emoji');
+		$toUserId = $this->encryption->decrypt($this->input->post('user_id'));
+		$checkEmoji = $this->db->where(['post_id'=>$postId,'from_user'=>$userId])->get('post_emoji')->row();
+		if($checkEmoji){
+			$update = $this->site_model->update_data('post_emoji',['emoji_id'=>$emoji,'updated'=>$this->dateTimeNow],['post_id'=>$postId,'from_user'=>$userId]);
+		}else{
+			$insert = $this->site_model->insert_data('post_emoji',['post_id'=>$postId,'from_user'=>$userId,'to_user'=>$toUserId,'emoji_id'=>1,'created'=>$this->dateTimeNow,'updated'=>$this->dateTimeNow]);
+		}
+		$this->updateQuantityInteraction($postId);
+	}
+
+	function updateQuantityInteraction($postId)
+	{
+		$quantity = $this->db->where(['post_id'=>$postId])->where('emoji_id !=',0)->get('post_emoji')->num_rows();
+		$update = $this->site_model->update_data('post',['quantity_interaction'=>$quantity],['id'=>$postId]);
+	}
+
+	function change_subject()
+	{
+		$subjecId = $this->input->post('subject_id');
+		$userId = $this->session->userdata('user')['id'];
+		$update = $this->site_model->update_data('user',['subject_id'=>$subjecId,'updated'=>date('Y-m-d H:i:s')],['id'=>$userId]);
 	}
 
 	function get_ip()

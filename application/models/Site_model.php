@@ -110,10 +110,10 @@ class Site_model extends CI_Model {
  		return $this->db->insert($tbl, $data);
  	}
  	public function update_data($tbl, $data, $condition){
-		$this->db->update($tbl, $data,$condition);
+		return $this->db->update($tbl, $data,$condition);
  	}
  	public function delete_data($tbl,$condition){
-        $this->db->delete($tbl,$condition);
+        return $this->db->delete($tbl,$condition);
 	}
 
 }

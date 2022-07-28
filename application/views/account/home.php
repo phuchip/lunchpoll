@@ -74,136 +74,67 @@
             </div>
         </div>
 
-        <div class="post">
-            <div class="post-top">
-                <div class="dp">
-                    <img src="/assets/image/girl.jpg" alt="">
-                </div>
-                <div class="post-info">
-                    <p class="name">Anuska Sharma</p>
-                    <span class="time">12 hrs ago</span>
-                </div>
-                <i class="fas fa-ellipsis-h"></i>
-            </div>
+        <div id="list_post">
+            <?php if(isset($arrPost)): ?>
+                <?php foreach($arrPost as $post): ?>
+                    <?php $emoji='';
+                    if(isset($arrPostEmoji)){
+                        if(isset($arrPostEmoji[$post->id]) && $arrPostEmoji[$post->id]['emoji_id'] != 0){
+                            $emoji ='active';
+                        }
+                    } ?>
+                    <div class="post" data-id="<?= $post->id ?>" data-user="<?= $this->encryption->encrypt($post->user_id) ?>">
+                        <div class="post-top">
+                            <div class="dp">
+                                <img src="<?= $post->avatar ?>" alt="<?= $post->user_name ?>">
+                            </div>
+                            <div class="post-info">
+                                <p class="name"><?= $post->user_name ?></p>
+                                <span class="time"><?= Globals::timming($post->created) ?></span>
+                            </div>
+                            <i class="fas fa-ellipsis-h"></i>
+                        </div>
 
-            <div class="post-content">
-                Roses are red <br>
-                Violets are blue <br>
-                I'm ugly & you are too😏
-            </div>
+                        <div class="post-content"><?= $post->content ?></div>
 
-            <div class="post-bottom">
-                <div class="action">
-                    <i class="far fa-thumbs-up"></i>
-                    <span>Thích</span>
-                </div>
-                <div class="action">
-                    <i class="far fa-comment"></i>
-                    <span>Bình luận</span>
-                </div>
-                <div class="action">
-                    <i class="fa fa-share"></i>
-                    <span>Chia sẻ</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="post">
-            <div class="post-top">
-                <div class="dp">
-                    <img src="/assets/image/dp.jpg" alt="">
-                </div>
-                <div class="post-info">
-                    <p class="name">Ramesh GC</p>
-                    <span class="time">2 days ago</span>
-                </div>
-                <i class="fas fa-ellipsis-h"></i>
-            </div>
-
-            <div class="post-content">
-                Mountains are so cool
-                <img src="/assets/image/mountains.jpg" />
-            </div>
-
-            <div class="post-bottom">
-                <div class="action">
-                    <i class="far fa-thumbs-up"></i>
-                    <span>Like</span>
-                </div>
-                <div class="action">
-                    <i class="far fa-comment"></i>
-                    <span>Comment</span>
-                </div>
-                <div class="action">
-                    <i class="fa fa-share"></i>
-                    <span>Share</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="post">
-            <div class="post-top">
-                <div class="dp">
-                    <img src="/assets/image/boy.jpg" alt="">
-                </div>
-                <div class="post-info">
-                    <p class="name">Priyank Saksena</p>
-                    <span class="time">1 week ago</span>
-                </div>
-                <i class="fas fa-ellipsis-h"></i>
-            </div>
-            <div class="post-content">
-                Happy birthday dear
-                <img src="/assets/image/girl_with_light.jpg" alt="Mountains">
-            </div>
-            <div class="post-bottom">
-                <div class="action">
-                    <i class="far fa-thumbs-up"></i>
-                    <span>Like</span>
-                </div>
-                <div class="action">
-                    <i class="far fa-comment"></i>
-                    <span>Comment</span>
-                </div>
-                <div class="action">
-                    <i class="fa fa-share"></i>
-                    <span>Share</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="post">
-            <div class="post-top">
-                <div class="dp">
-                    <img src="/assets/image/model.jpg" alt="">
-                </div>
-                <div class="post-info">
-                    <p class="name">Pragati Adhikari</p>
-                    <span class="time">5 mins ago</span>
-                </div>
-                <i class="fas fa-ellipsis-h"></i>
-            </div>
-            <div class="post-content">
-                Hey, everybody! My new shoes are here
-                <img src="/assets/image/shoes.jpg" alt="Shoes">
-            </div>
-            <div class="post-bottom">
-                <div class="action">
-                    <i class="far fa-thumbs-up"></i>
-                    <span>Like</span>
-                </div>
-                <div class="action">
-                    <i class="far fa-comment"></i>
-                    <span>Comment</span>
-                </div>
-                <div class="action">
-                    <i class="fa fa-share"></i>
-                    <span>Share</span>
-                </div>
-            </div>
+                        <div class="post-bottom <?= $emoji ?>">
+                            <div class="action like <?= $emoji ?>">
+                                <i class="far fa-thumbs-up"></i>
+                                <span>Thích</span>
+                            </div>
+                            <div class="action comment">
+                                <i class="far fa-comment"></i>
+                                <span>Bình luận</span>
+                            </div>
+                            <div class="action share">
+                                <i class="fa fa-share"></i>
+                                <span>Chia sẻ</span>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Không có bài đăng nào</p>
+            <?php endif; ?>
         </div>
 
     </div>
     <?php $this->load->view('account/right_panel'); ?>
 </div>
 <?php $this->load->view('modal/create_post'); ?>
+<script>
+    $('.post-bottom .like').click(function(e){
+        var like;
+        var parent = $(this).parents('.post');
+        var postId = parent.attr('data-id');
+        var userId = parent.attr('data-user');
+        if($(this).hasClass('active')){
+            $(this).removeClass('active');
+            like = 0;
+        }else{
+            $(this).addClass('active');
+            like = 1;
+        }
+        $.post('api/emoji',{emoji:like,post_id:postId,user_id:userId});
+    });
+</script>

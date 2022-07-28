@@ -7,6 +7,14 @@ class Globals
     private static $ClientSecret = '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';
     private static $RedirectUri = 'http://whatisforlunch.com/google';
 
+    public static $arrSubject = [
+        '1'=>['name'=>'Công khai','description'=>'Mọi người trên hoặc ngoài Facbook','icon' => 'fa-globe-asia'],
+        '2'=>['name'=>'Bạn bè','description'=>'Bạn bè của bạn trên Facebook','icon' => 'fa-user-friends'],
+        '3'=>['name'=>'Bạn bè ngoại trừ...','description'=>'Không hiển thị với một số bạn bè','icon' => 'fa-user'],
+        '4'=>['name'=>'Chỉ mình tôi','description'=>'Chỉ bạn mới có thể xem bài đăng của mình','icon' => 'fa-lock'],
+        '5'=>['name'=>'Tùy chỉnh','description'=>'Bao gồm và loại trừ bạn bè, danh sách','icon' => 'fa-cog'],
+    ];
+
     public static function getGoogle($redirectUrl = null)
     {
         include_once "vendor/autoload.php";
@@ -74,6 +82,7 @@ class Globals
         if (!file_exists($folder)) {
             mkdir($folder, 0777,true);
         }
+        return $folder;
     }
 
     public static function saveAvatarUser($userId,$url){
@@ -140,8 +149,11 @@ class Globals
                 'username' => $data->username,
                 'avatar'	=> $data->avatar,
                 'active'=> 1,
+                'subject' => $data->subject_id,
             ];
             $_SESSION['user'] = $user;
+        }else{
+            redirect('login');
         }
     }
 
@@ -190,6 +202,51 @@ class Globals
         $lastName = substr(end($arrWords),0,1);
         $character = $firstName.$lastName;
         return $character;
+    }
+    
+    /**
+     * Đổi ra thời gian 
+     * Ví dụ truyền vào 1 chuỗi 2022-07-26 15:20:15
+     * Thời gian hiện tại 2022-07-26 16:20:15
+     * Trả về : 1 giờ trước
+     *
+     * @param  mixed $time
+     */
+    public static function timming($time){
+        $time = strtotime($time);
+        if($time > time()){
+            return false;
+        }
+        $time = date('Y-m-d H:i:s',$time);
+        return self::time_elapsed_string($time);
+    }
+    public static function time_elapsed_string($datetime, $full = false) {
+        $now = new DateTime;
+        $ago = new DateTime($datetime);
+        $diff = $now->diff($ago);
+    
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+    
+        $string = array(
+            'y' => 'năm',
+            'm' => 'tháng',
+            'w' => 'tuần',
+            'd' => 'ngày',
+            'h' => 'giờ',
+            'i' => 'phút',
+            's' => 'giây',
+        );
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ' ' . $v;
+            } else {
+                unset($string[$k]);
+            }
+        }
+    
+        if (!$full) $string = array_slice($string, 0, 1);
+        return $string ? implode(', ', $string) . ' trước' : 'vừa xong';
     }
 
 }
