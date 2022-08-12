@@ -129,7 +129,6 @@ class Api extends CI_Controller {
 		$userId = $this->session->userdata('user')['id'];
 		$subjecId = $this->session->userdata('user')['subject'];
 		$arrImages = $_FILES['image_post'];
-		var_dump($arrImages);die;
 		$insert = $this->site_model->insert_data('post',['user_id'=>$userId,'content'=>$content,'subject_id'=>$subjecId,'created'=>$this->dateTimeNow,'updated'=>$this->dateTimeNow]);
 		if($insert){
 			if(isset($arrImages)){
@@ -154,7 +153,7 @@ class Api extends CI_Controller {
 			if(move_uploaded_file($arrImages['tmp_name'][$i], $path)){ // Lưu file
 				//Thực hiện insert image
 				$insert = $this->site_model->insert_data('post_image',['user_id'=>$this->session->userdata('user')['id'],'post_id'=>$postId,'image'=>$path,'status'=>1,'created'=>$this->dateTimeNow,'updated'=>$this->dateTimeNow]);
-				array_push($arrPath,$file_name);
+				array_push($arrPath,$path);
 			};
 		}
 		return $arrPath;

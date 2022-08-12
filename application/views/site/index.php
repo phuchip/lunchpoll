@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="/assets/tooltipster/css/tooltipster.bundle.min.css" />
-    <script src="/assets/js/jquery.min.js"></script>
     <link rel="stylesheet" href="/assets/font-awesome-v5/css/all.min.css" />
     <script type="text/javascript" src="/assets/tooltipster/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -24,5 +23,7 @@
     <?php echo $this->load->view('site/modal_login','',true); ?>
     <!-- <?php echo $this->load->view('site/footer','',true); ?> -->
     <script src="assets/js/home.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/layzysizes.min.js"></script>
 </body>
 </html>

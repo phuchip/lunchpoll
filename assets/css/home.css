@@ -84,7 +84,6 @@ nav .nav-middle a > i{
 }
 
 nav .nav-right .profile, .container .left-panel .profile{
-    background: url('/assets/image/dp.jpg');
     height:30px;
     width:30px;
     background-size: cover;
@@ -119,7 +118,26 @@ nav .nav-right a > i{
     top:70px;
     width:250px;
     height:calc(100vh - 70px);
+    overflow: hidden;
 }
+.container .left-panel:hover,.container .right-panel:hover{
+    overflow-y: scroll;
+}
+
+.container .left-panel::-webkit-scrollbar,.container .right-panel::-webkit-scrollbar{
+    width: 6px;
+	background-color: #ced0d4;
+}
+.container .left-panel::-webkit-scrollbar-track,.container .right-panel::-webkit-scrollbar-track {
+	background-color: #eee;
+}
+.container .left-panel::-webkit-scrollbar-thumb,.container .right-panel::-webkit-scrollbar-thumb
+{
+	background-color: #bcc0c4;
+    border-radius: 4px;
+}
+
+
 
 .container .left-panel ul{
     padding:10px 0px;
@@ -379,6 +397,7 @@ nav .nav-right a > i{
     border-radius: 5px;
     padding:7px 10px;
     color:#333;
+    position: relative;
 }
 
 .right-panel .pages-section .page:hover,
@@ -440,10 +459,14 @@ nav .nav-right a > i{
     font-size: .9375rem;
     font-weight: 600;
 }
-.left-panel ul li img.avatar{
-    border-radius: 50%;
+.profile{
     width: 30px;
     height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.profile img.avatar{
+    width: 100%;
 }
 .error{
     color: red;
@@ -451,4 +474,18 @@ nav .nav-right a > i{
 }
 .post-bottom .action.active i,.post-bottom .action.active span{
     color: blue;
+}
+.avatar-active{
+    color: #31a24c;
+    position: absolute;
+    left: 35px;
+    bottom: 7px;
+    font-size: 10px;
+}
+.avatar-non-active{
+    color: gray;
+    position: absolute;
+    left: 35px;
+    bottom: 7px;
+    font-size: 10px;
 }

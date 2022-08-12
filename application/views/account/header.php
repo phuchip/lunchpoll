@@ -22,7 +22,7 @@
     </div>
 
     <div class="nav-right">
-        <span class="profile"></span>
+        <span class="profile"><?= Globals::createTagImage($this->session->userdata('user')['avatar'],'avatar',$this->session->userdata('user')['username']) ?></span>
 
         <a href="#">
             <i class="fa fa-bell"></i>

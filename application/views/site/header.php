@@ -18,7 +18,7 @@
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">Xin chào : <span style="color: #7fffd4"><?= $this->session->userdata('user')['username'] ?></span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="account">Thông tin tài khoản</a></li>
+                        <li><a class="dropdown-item" href="home">Thông tin tài khoản</a></li>
                         <li><a class="dropdown-item" href="logout">Đăng xuất</a></li>
                         
                     </ul>

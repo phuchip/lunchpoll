@@ -249,4 +249,15 @@ class Globals
         return $string ? implode(', ', $string) . ' trước' : 'vừa xong';
     }
 
+    public static function createTagImage($url,$class=null,$alt=null,$type=null)
+    {
+        if($type == 'avatar'){
+            $error = '/images/avatar/no-user.png';
+        }else{
+            $error = '/images/wait.gif';
+        }
+        $html = '<img class="'.$class.' lazyload" src="/assets/loading3.gif" data-src="'.$url.'" onerror=this.onerror=null;this.src="'.$error.'";>';
+        return $html;
+    }
+
 }

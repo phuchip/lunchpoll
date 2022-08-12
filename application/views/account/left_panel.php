@@ -1,7 +1,9 @@
 <div class="left-panel">
     <ul>
         <li>
-            <img class="avatar" src="<?= $this->session->userdata('user')['avatar'] ?>" alt="<?= $this->session->userdata('user')['username'] ?>">
+            <span class="profile">
+                <img class="avatar" src="<?= $this->session->userdata('user')['avatar'] ?>" alt="<?= $this->session->userdata('user')['username'] ?>">
+            </span>
             <p><?= $this->session->userdata('user')['username'] ?></p>
         </li>
         <li>

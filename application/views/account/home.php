@@ -78,6 +78,8 @@
             <?php if(isset($arrPost)): ?>
                 <?php foreach($arrPost as $post): ?>
                     <?php $emoji='';
+                    $arrPostImage = [];
+                    if(!empty($post->image)){$arrPostImage = explode(',',$post->image);}
                     if(isset($arrPostEmoji)){
                         if(isset($arrPostEmoji[$post->id]) && $arrPostEmoji[$post->id]['emoji_id'] != 0){
                             $emoji ='active';
@@ -96,6 +98,13 @@
                         </div>
 
                         <div class="post-content"><?= $post->content ?></div>
+                        <?php if(count($arrPostImage) > 0): ?>
+                            <div class="post-image-area">
+                                <?php foreach($arrPostImage as $image): ?>
+                                    <img class="image-post lazyload" src="/assets/loading3.gif" data-src="<?= $image ?>">
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
 
                         <div class="post-bottom <?= $emoji ?>">
                             <div class="action like <?= $emoji ?>">

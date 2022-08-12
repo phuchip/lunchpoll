@@ -138,7 +138,8 @@ $arrSubjectJson = json_encode($arrSubject); ?>
         function handleDrop(e) {
             var dt = e.dataTransfer
             var files = dt.files
-            handleFiles(files)
+            document.getElementById("file_post").files = files;
+            handleFiles(files);
         }
 
         // Hàm thực hiện việc xử lý files sau khi User chọn
@@ -240,6 +241,14 @@ $arrSubjectJson = json_encode($arrSubject); ?>
             success: function(result) {
                 var data = $.parseJSON(result);
                 if (data.success) {
+                    var html_image = '';
+                    if(data.images.length > 0){
+                        html_image += '<div class="post-image-area">';
+                        $.each(data.images,function(index,value){
+                            html_image += `<img class="image-post" src="`+value+`">`;
+                        });
+                        html_image += '</div>';
+                    }
                     var html = '';
                     html += `<div class="post">
                                 <div class="post-top">
@@ -254,7 +263,7 @@ $arrSubjectJson = json_encode($arrSubject); ?>
                                 </div>
 
                                 <div class="post-content">` + content + `</div>
-
+                                `+html_image+`
                                 <div class="post-bottom">
                                     <div class="action">
                                         <i class="far fa-thumbs-up"></i>

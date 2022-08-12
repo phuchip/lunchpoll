@@ -12,9 +12,10 @@
     <meta name="robots" content="noindex,nofollow" />
     <!-- Library -->
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <script src="/assets/js/jquery.min.js"></script>
     <link rel="stylesheet" href="/assets/font-awesome-v5/css/all.min.css" />
     <link rel="stylesheet" href="/assets/css/home.css">
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/lazysizes.min.js"></script>
 </head>
 <body>
     <?php echo $this->load->view('account/header','',true); ?>
