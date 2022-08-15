@@ -153,7 +153,7 @@ class Globals
             ];
             $_SESSION['user'] = $user;
         }else{
-            redirect('login');
+            // redirect('login');
         }
     }
 

@@ -12,18 +12,13 @@
     <meta name="robots" content="noindex,nofollow" />
     <!-- Library -->
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/assets/tooltipster/css/tooltipster.bundle.min.css" />
     <link rel="stylesheet" href="/assets/font-awesome-v5/css/all.min.css" />
+    <link rel="stylesheet" href="/assets/css/home.css">
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/lazysizes.min.js"></script>
 </head>
 <body>
-    <?php echo $this->load->view('site/header','',true); ?>
+    <?php echo $this->load->view('account/header','',true); ?>
     <?php echo $this->load->view($content,'',true); ?>
-    <?php echo $this->load->view('site/modal_login','',true); ?>
-    <!-- <?php echo $this->load->view('site/footer','',true); ?> -->
-    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/assets/js/home.js"></script>
-    <script type="text/javascript" src="/assets/tooltipster/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="/assets/js/lazysizes.min.js"></script>
 </body>
 </html>
