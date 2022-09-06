@@ -250,7 +250,7 @@ $arrSubjectJson = json_encode($arrSubject); ?>
                         html_image += '</div>';
                     }
                     var html = '';
-                    html += `<div class="post">
+                    html += `<div class="post" data-id="`+data.post_id+`">
                                 <div class="post-top">
                                     <div class="post-account">
                                         <div class="dp">
@@ -261,11 +261,11 @@ $arrSubjectJson = json_encode($arrSubject); ?>
                                             <span class="time">Vừa xong</span>
                                         </div>
                                     </div>
-                                    <div class="post-option" data-id="">
+                                    <div class="post-option" data-id="`+data.post_id+`">
                                         <i class="fas fa-ellipsis-h icon-option"></i>
                                         <ul class="options">
-                                            <li class="item"><i class="fa fa-flag"></i> Báo cáo</li>
-                                            <li class="item"><i class="fa fa-trash"></i> Xóa bài viết</li>
+                                            <li class="item" data-value="report"><i class="fa fa-flag"></i> Báo cáo</li>
+                                            <li class="item" data-value="delete"><i class="fa fa-trash"></i> Xóa bài viết</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -290,6 +290,9 @@ $arrSubjectJson = json_encode($arrSubject); ?>
                     $('#CreatePost').modal('hide');
                     $('textarea[name="content_post"]').val('');
                     $('#list_post').prepend(html);
+                    actionPostOption();
+                    showPostOption();
+                    closePostOption();
                 } else {
                     $('.btn-post').append('<p class="error error_post text-center">' + data.mes + '</p>');
                 }

@@ -123,10 +123,11 @@ class Api extends CI_Controller {
 		$arrImages = $_FILES['image_post'];
 		$insert = $this->site_model->insert_data('post',['user_id'=>$userId,'content'=>$content,'subject_id'=>$subjecId,'created'=>$this->dateTimeNow,'updated'=>$this->dateTimeNow]);
 		if($insert){
+			$postId = $this->db->insert_id();
 			if(isset($arrImages)){
-				$arrPath = $this->insertImageToPost($arrImages,$this->db->insert_id());
+				$arrPath = $this->insertImageToPost($arrImages,$postId);
 			}
-			echo json_encode(['success'=>true,'mes'=>'','images'=>$arrPath]);
+			echo json_encode(['success'=>true,'mes'=>'','post_id'=>$postId,'images'=>$arrPath]);
 		}else{
 			echo json_encode(['success'=>false,'mes'=>'Có lỗi xảy ra xin vui lòng thử lại']);
 		}
