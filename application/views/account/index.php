@@ -19,7 +19,6 @@
     <script src="/assets/js/lazysizes.min.js"></script>
 </head>
 <body>
-    <?php echo $this->load->view('account/header','',true); ?>
     <?php echo $this->load->view($content,'',true); ?>
 
     <script type="text/javascript" src="/assets/js/home.js"></script>

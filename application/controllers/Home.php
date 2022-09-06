@@ -48,9 +48,11 @@ class Home extends CI_Controller {
 		$this->load->view('account/login');
 	}
 
-	public function post()
+	public function account()
 	{
-		$this->load->view('modal/create_post');
+		$data['title'] = 'Trang cá nhân';
+		$data['content'] = 'account/account';
+		$this->load->view('account/index',$data);
 	}
 
 }

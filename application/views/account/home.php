@@ -1,3 +1,5 @@
+<?php echo $this->load->view('account/header','',true); ?>
+
 <div class="container">
     <?php $this->load->view('account/left_panel'); ?>
     <div class="middle-panel">
