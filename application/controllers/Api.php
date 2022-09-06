@@ -179,6 +179,35 @@ class Api extends CI_Controller {
 		$update = $this->site_model->update_data('user',['subject_id'=>$subjecId,'updated'=>date('Y-m-d H:i:s')],['id'=>$userId]);
 	}
 
+	function action_post()
+	{
+		$action = $this->input->post('action');
+		$postId = $this->input->post('post_id');
+		$userId = $this->session->userdata('user')['id'];
+		$postModel = $this->site_model->select_data_normal('post',['id'=>$postId],1);
+		if($action == 'delete' && $postModel->user_id == $userId){
+			$arrPostImage = $this->site_model->select_data_normal('post_image',['post_id'=>$postId,'user_id'=>$userId]);
+			foreach($arrPostImage as $postImage){
+				$urlImage = $postImage->image;
+				unlink($urlImage);
+			}
+			$delete = $this->site_model->delete_data('post',['id'=>$postId]);
+			$deleteImage = $this->site_model->delete_data('post_image',['post_id'=>$postId,'user_id'=>$userId]);
+			$result = [
+				'status' => 'success',
+				'action' => 'delete',
+				'message' => 'Xóa bài viết thành công'
+			];
+		}elseif($action == 'report'){
+			$result = [
+				'status' => 'success',
+				'action' => 'report',
+				'message' => 'Đã báo cáo bài viết'
+			];
+		}
+		echo json_encode($result);
+	}
+
 }
 
 /* End of file Api.php */

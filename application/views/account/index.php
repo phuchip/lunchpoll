@@ -12,6 +12,7 @@
     <meta name="robots" content="noindex,nofollow" />
     <!-- Library -->
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/notifications.css">
     <link rel="stylesheet" href="/assets/font-awesome-v5/css/all.min.css" />
     <link rel="stylesheet" href="/assets/css/home.css">
     <script src="/assets/js/jquery.min.js"></script>
@@ -20,5 +21,9 @@
 <body>
     <?php echo $this->load->view('account/header','',true); ?>
     <?php echo $this->load->view($content,'',true); ?>
+
+    <script type="text/javascript" src="/assets/js/home.js"></script>
+    <script type="text/javascript" src="/assets/js/notifications.js"></script>
+    <script type="text/javascript" src="/assets/js/post.js"></script>
 </body>
 </html>

@@ -1,3 +1,17 @@
+function notification(theme,message,position=null) {
+    var positionClass = 'nfc-bottom-right';
+    if(position == 'top'){
+        positionClass = 'nfc-top-right';
+    }
+    window.createNotification({
+        positionClass: positionClass,
+        showDuration: 3000,
+        theme: theme
+    })({
+        title: 'Thông báo',
+        message: message
+    });
+}
 $(document).ready(function () {
 	//Login
 	$("#login-submit").click(function () {

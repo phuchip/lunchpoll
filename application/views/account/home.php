@@ -87,14 +87,22 @@
                     } ?>
                     <div class="post" data-id="<?= $post->id ?>" data-user="<?= $this->encryption->encrypt($post->user_id) ?>">
                         <div class="post-top">
-                            <div class="dp">
-                                <img src="<?= $post->avatar ?>" alt="<?= $post->user_name ?>">
+                            <div class="post-account">
+                                <div class="dp">
+                                    <img src="<?= $post->avatar ?>" alt="<?= $post->user_name ?>">
+                                </div>
+                                <div class="post-info">
+                                    <p class="name"><?= $post->user_name ?></p>
+                                    <span class="time"><?= Globals::timming($post->created) ?></span>
+                                </div>
                             </div>
-                            <div class="post-info">
-                                <p class="name"><?= $post->user_name ?></p>
-                                <span class="time"><?= Globals::timming($post->created) ?></span>
+                            <div class="post-option" data-id="<?= $post->id ?>">
+                                <i class="fas fa-ellipsis-h icon-option"></i>
+                                <ul class="options">
+                                    <li class="item" data-value="report"><i class="fa fa-flag"></i> Báo cáo</li>
+                                    <li class="item" data-value="delete"><i class="fa fa-trash"></i> Xóa bài viết</li>
+                                </ul>
                             </div>
-                            <i class="fas fa-ellipsis-h"></i>
                         </div>
 
                         <div class="post-content"><?= $post->content ?></div>

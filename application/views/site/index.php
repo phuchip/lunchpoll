@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="/assets/tooltipster/css/tooltipster.bundle.min.css" />
-    <link rel="stylesheet" href="/assets/font-awesome-v5/css/all.min.css" />
+    <link rel="stylesheet" href="/assets/font-awesome/css/font-awesome.min.css" />
 </head>
 <body>
     <?php echo $this->load->view('site/header','',true); ?>

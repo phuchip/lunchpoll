@@ -252,14 +252,22 @@ $arrSubjectJson = json_encode($arrSubject); ?>
                     var html = '';
                     html += `<div class="post">
                                 <div class="post-top">
-                                    <div class="dp">
-                                        <img src="<?= $this->session->userdata('user')['avatar'] ?>" alt="<?= $this->session->userdata('user')['username'] ?>">
+                                    <div class="post-account">
+                                        <div class="dp">
+                                            <img src="<?= $this->session->userdata('user')['avatar'] ?>" alt="<?= $this->session->userdata('user')['username'] ?>">
+                                        </div>
+                                        <div class="post-info">
+                                            <p class="name"><?= $this->session->userdata('user')['username'] ?></p>
+                                            <span class="time">Vừa xong</span>
+                                        </div>
                                     </div>
-                                    <div class="post-info">
-                                        <p class="name"><?= $this->session->userdata('user')['username'] ?></p>
-                                        <span class="time">Vừa xong</span>
+                                    <div class="post-option" data-id="">
+                                        <i class="fas fa-ellipsis-h icon-option"></i>
+                                        <ul class="options">
+                                            <li class="item"><i class="fa fa-flag"></i> Báo cáo</li>
+                                            <li class="item"><i class="fa fa-trash"></i> Xóa bài viết</li>
+                                        </ul>
                                     </div>
-                                    <i class="fas fa-ellipsis-h"></i>
                                 </div>
 
                                 <div class="post-content">` + content + `</div>

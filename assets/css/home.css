@@ -4,6 +4,9 @@
     box-sizing: border-box;
     font-family: sans-serif;
 }
+ul,ol{
+    list-style: none;
+}
 .h4,h4{
     font-size: 20px;
 }
@@ -289,6 +292,7 @@ nav .nav-right a > i{
 
 .post .post-top{
     display:flex;
+    justify-content: space-between;
     align-items: center;
     padding:10px;
 }
@@ -320,9 +324,47 @@ nav .nav-right a > i{
     cursor:pointer;
 }
 
-.post .post-top i{
+.post .post-top .post-option{
+    position: relative;
     margin-left:auto;
     cursor: pointer;
+    width: 30%;
+}
+.post .post-top .post-option i.icon-option{
+    float: right;
+}
+.post-option .options{
+    display: none;
+    position: absolute;
+    top: 15px;
+    padding: 5px 0;
+    width: 100%;
+    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2) , 0 2px 4px 0 #0000001a;
+    border-radius: 8px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-color: #fff;
+}
+.post-option .options.show{
+    display: block;
+}
+.options .item i{
+    margin-right: 5px;
+}
+.post-option .options .item{
+    padding: 8px;
+    margin: 0 8px;
+    font-size: 14px;
+}
+
+.post-option .options .item:hover{
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.post-top .post-account{
+    display: flex;
+
 }
 
 .post .post-top .create-post-area{
