@@ -36,10 +36,12 @@ class Globals
         return $google_client;
     }
 
-    public static function getLinkLogin()
+    public static function getLinkLogin($redirectUrl=null)
     {
-        $base_url = rtrim(base_url(),'/');
-        $redirectUrl = $base_url.$_SERVER['REQUEST_URI'];
+        if(!$redirectUrl){
+            $base_url = rtrim(base_url(),'/');
+            $redirectUrl = $base_url.$_SERVER['REQUEST_URI'];
+        }
         $google_client = self::getGoogle($redirectUrl);
         return $google_client->createAuthUrl(); 
     }
@@ -153,7 +155,7 @@ class Globals
             ];
             $_SESSION['user'] = $user;
         }else{
-            // redirect('login');
+            redirect('login');
         }
     }
 
