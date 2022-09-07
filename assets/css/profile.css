@@ -808,30 +808,11 @@ header {
   color: #a3a6aa;
 }
 
-.like {
-  margin-right: 36px;
-}
-
-.like,
-.comment {
-  width: 50px;
-  float: left;
-}
 
 .p-act i {
   vertical-align: middle;
 }
 
-.like i,
-.comment i {
-  margin-right: 6px;
-}
-
-.share {
-  float: right;
-  transform: rotateY(180deg);
-  margin-right: -1px;
-}
 
 #loading {
   text-align: center;
@@ -935,5 +916,7 @@ header {
   text-align: center;
   margin: 0 auto;
 }
-
+#btn-change-password{
+  margin-top: 1rem;
+}
 /* Footer finished */

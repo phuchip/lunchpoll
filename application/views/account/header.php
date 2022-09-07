@@ -22,13 +22,15 @@
     </div>
 
     <div class="nav-right">
-        <span class="profile"><?= Globals::createTagImage($this->session->userdata('user')['avatar'],'avatar',$this->session->userdata('user')['username']) ?></span>
+        <a href="/account" class="nav-right-item account-url">
+            <span class="profile"><?= Globals::createTagImage($this->session->userdata('user')['avatar'],'avatar',$this->session->userdata('user')['username']) ?></span>
+        </a>
 
-        <a href="#">
+        <a href="#" class="nav-right-item">
             <i class="fa fa-bell"></i>
         </a>
 
-        <a href="#">
+        <a href="#" class="nav-right-item">
             <i class="fa fa-ellipsis-h"></i>
         </a>
     </div>

@@ -1,6 +1,6 @@
 <div class="left-panel">
-    <ul>
-        <li>
+    <ul class="left-panel-items">
+        <li data-url="/account">
             <span class="profile">
                 <img class="avatar" src="<?= $this->session->userdata('user')['avatar'] ?>" alt="<?= $this->session->userdata('user')['username'] ?>">
             </span>

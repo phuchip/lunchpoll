@@ -12,6 +12,24 @@ function notification(theme,message,position=null) {
         message: message
     });
 }
+$('.post-bottom .like').click(function(e){
+	var like;
+	var parent = $(this).parents('.post');
+	var postId = parent.attr('data-id');
+	var userId = parent.attr('data-user');
+	if($(this).hasClass('active')){
+		$(this).removeClass('active');
+		like = 0;
+	}else{
+		$(this).addClass('active');
+		like = 1;
+	}
+	$.post('api/emoji',{emoji:like,post_id:postId,user_id:userId});
+});
+$('.left-panel-items li').click(function(){
+	var url = $(this).data('url');
+	window.location.href = url;
+});
 $(document).ready(function () {
 	//Login
 	$("#login-submit").click(function () {

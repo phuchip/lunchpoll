@@ -94,7 +94,7 @@ nav .nav-right .profile, .container .left-panel .profile{
     cursor: pointer;
 }
 
-nav .nav-right a{
+nav .nav-right .nav-right-item{
     text-decoration: none;
     color:#333;
     height:40px;
@@ -106,7 +106,11 @@ nav .nav-right a{
     margin-left:1rem;
 }
 
-nav .nav-right a > i{
+nav .nav-right .nav-right-item.account-url{
+    background: none;
+}
+
+nav .nav-right .nav-right-item > i{
     font-size:18px;
 }
 

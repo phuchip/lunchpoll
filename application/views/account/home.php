@@ -101,9 +101,13 @@
                             <div class="post-option" data-id="<?= $post->id ?>">
                                 <i class="fas fa-ellipsis-h icon-option"></i>
                                 <ul class="options">
-                                    <li class="item" data-value="report"><i class="fa fa-flag"></i> Báo cáo</li>
-                                    <li class="item" data-value="delete"><i class="fa fa-trash"></i> Xóa bài viết</li>
-                                </ul>
+                                    <?php if($post->user_id != $this->session->userdata('user')['id']): ?>
+                                        <li class="item" data-value="report"><i class="fa fa-flag"></i> Báo cáo</li>
+                                    <?php endif; ?>
+                                    <?php if($post->user_id == $this->session->userdata('user')['id']): ?>
+                                        <li class="item" data-value="delete"><i class="fa fa-trash"></i> Xóa bài viết</li>
+                                    <?php endif; ?>
+                                    </ul>
                             </div>
                         </div>
 
@@ -141,19 +145,3 @@
     <?php $this->load->view('account/right_panel'); ?>
 </div>
 <?php $this->load->view('modal/create_post'); ?>
-<script>
-    $('.post-bottom .like').click(function(e){
-        var like;
-        var parent = $(this).parents('.post');
-        var postId = parent.attr('data-id');
-        var userId = parent.attr('data-user');
-        if($(this).hasClass('active')){
-            $(this).removeClass('active');
-            like = 0;
-        }else{
-            $(this).addClass('active');
-            like = 1;
-        }
-        $.post('api/emoji',{emoji:like,post_id:postId,user_id:userId});
-    });
-</script>

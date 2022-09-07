@@ -15,4 +15,5 @@ $route['home'] = 'api/home';
 
 //Account
 $route['home'] = 'home/index';
+$route['account'] = 'home/account';
 $route['login'] = 'login/index';

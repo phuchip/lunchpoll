@@ -264,7 +264,6 @@ $arrSubjectJson = json_encode($arrSubject); ?>
                                     <div class="post-option" data-id="`+data.post_id+`">
                                         <i class="fas fa-ellipsis-h icon-option"></i>
                                         <ul class="options">
-                                            <li class="item" data-value="report"><i class="fa fa-flag"></i> Báo cáo</li>
                                             <li class="item" data-value="delete"><i class="fa fa-trash"></i> Xóa bài viết</li>
                                         </ul>
                                     </div>

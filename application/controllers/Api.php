@@ -209,6 +209,25 @@ class Api extends CI_Controller {
 		echo json_encode($result);
 	}
 
+	function change_password()
+	{
+		$passwordNew = $this->input->post('password_new');
+		$userId = $this->session->userdata('user')['id'];
+		$updatePassword = $this->site_model->update_data('user',['password'=>md5($passwordNew),'updated'=>date('Y-m-d H:i:s')],['id'=>$userId]);
+		if($updatePassword){
+			$result = [
+				'status' => 'success',
+				'message' => 'Đổi mật khẩu thành công'
+			];
+		}else{
+			$result = [
+				'status' => 'error',
+				'message' => 'Có lỗi xảy ra xin vui lòng thử lại sau'
+			];
+		}
+		echo json_encode($result);
+	}
+
 }
 
 /* End of file Api.php */
