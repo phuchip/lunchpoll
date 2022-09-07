@@ -10,8 +10,11 @@
                 <img src="/<?= $this->session->userdata('user')['avatar'] ?>">
                 <div class="caption">
                     <span>
-                        <label for="colorgbChangeAvatar" class="btn bg-success-400 btn-icon btn-xs" data-popup="lightbox"><i class="icon-plus2"></i></label>
-                        <input type="file" accept="image/*" id="colorgbChangeAvatar" name="file" class="hide form-control">
+                        <label for="ChangeAvatar" class="btn bg-success-400 btn-icon btn-xs">
+                            <i class="fas fa-camera"></i>
+                            <span>Đổi ảnh đại diện</span>
+                        </label>
+                        <input type="file" accept="image/*" id="ChangeAvatar" name="file" class="hide form-control">
                     </span>
                 </div>
             </div>

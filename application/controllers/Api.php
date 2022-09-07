@@ -228,6 +228,47 @@ class Api extends CI_Controller {
 		echo json_encode($result);
 	}
 
+	function change_avatar()
+	{
+		$file = $_FILES['file'];
+		if ($file['name']) {
+			$allowedTypes = array(IMAGETYPE_PNG, IMAGETYPE_JPEG);
+			$detectedType = exif_imagetype($file['tmp_name']);
+			if(!in_array($detectedType, $allowedTypes)){
+				echo json_encode(['status'=>'error','message'=>'Vui lòng upload định dạng ảnh']);
+				exit();
+			}
+
+			$userId = $this->session->userdata('user')['id'];
+			$userName = $this->session->userdata('user')['username'];
+			$userNameSlug = Globals::convertSlug($userName);
+			$fileName = date('Y-m-d').'_'.$userNameSlug.'.png';
+			$folderName = Globals::createFolder('avatar/'.$userId);
+			$filePath = $folderName.$fileName;
+
+			$userModel = $this->site_model->select_data_normal('user',['id'=>$userId],1);
+			$avatar = $userModel->avatar;
+			try{
+				unlink($avatar);
+			}catch (\Exception $e) {
+				exit($e->getMessage());
+			}
+			
+			if(!move_uploaded_file($file['tmp_name'], $filePath)){ // Lưu file 
+	            echo json_encode(['status'=>'error','message'=>'Có lỗi xảy ra xin vui lòng thử lại']);
+				exit();
+	        }else{
+				$updateAvatar = $this->site_model->update_data('user',['avatar'=>$filePath,'updated'=>date('Y-m-d H:i:s')],['id'=>$userId]);
+				echo json_encode(['status'=>'success','image'=>$filePath,'message'=>'Thay đổi ảnh đại diện thành công']);
+				exit();
+			}
+		}else{
+			echo json_encode(['status'=>'error','message'=>'Có lỗi xảy ra xin vui lòng thử lại']);
+			exit();
+		}
+		
+	}
+
 }
 
 /* End of file Api.php */
